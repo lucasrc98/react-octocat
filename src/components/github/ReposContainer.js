@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { fetchRepos } from '../../service/repos-api'
+import ReposList from './ReposList'
 
 class ReposContainer extends Component{
 
@@ -8,17 +9,20 @@ class ReposContainer extends Component{
 
         this.state = {
 
-            repos: []
+            repositorios: []
         }
     }
 
     componentDidMount(){
-        fetchRepos('lucasrc98').then(res => window.console.log(res.data))
+        fetchRepos('lucasrc98').then(res => this.setState({repositorios: res.data}))
     }
 
     render(){
         return(
-            <h1>Repos Container</h1>
+            <div>
+                <h1>Repositórios</h1>
+                <ReposList repositorios = {this.state.repositorios}></ReposList>
+            </div>
         )
     }
 }
